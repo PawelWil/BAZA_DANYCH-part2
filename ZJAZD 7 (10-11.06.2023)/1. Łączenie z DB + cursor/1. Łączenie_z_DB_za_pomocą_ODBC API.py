@@ -1,3 +1,6 @@
+#plik '.env musi być dostępny zaraz na początku, bo z niego się pobiera hasło do konta. Nie może ten plik .env być w jakimś katalogu  schowany,
+# bo kod już w innym katalogu wtedy nie zadziała
+
 import os
 
 import pyodbc
