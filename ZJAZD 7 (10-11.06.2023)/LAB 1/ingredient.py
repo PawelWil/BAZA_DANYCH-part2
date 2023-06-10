@@ -1,6 +1,6 @@
 class Ingredient:
 
-    def __init__(self, name, calories, protein, fat, carbs, fiber, ingredient_type):
+    def __init__(self, id, name, calories, protein, fat, carbs, fiber, ingredient_type):
         self.name = name
         self.calories = calories
         self.protein = protein

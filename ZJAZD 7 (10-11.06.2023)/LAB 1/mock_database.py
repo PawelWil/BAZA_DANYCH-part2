@@ -1,10 +1,13 @@
 from ingredient import Ingredient
-
-ingredients = []
+from connection import connection
 
 
 def add_ingredient(name, calories, protein, fat, carbs, fiber, ingredient_type) -> None:
-    ingredients.append(Ingredient(name, calories, protein, fat, carbs, fiber, ingredient_type))
+    with connection.cursor() as cursor:
+        cursor.execute("""
+        INSERT INTO ingredients (ingredient_name, calories, protein, fat, carbs, fiber, ingredient_type)   
+        VALUES  (?,?,?,?,?,?,?)
+        """, (name, calories, protein, fat, carbs, fiber, ingredient_type))
 
 
 def find_all():
@@ -12,7 +15,10 @@ def find_all():
     Find all ingredients in list.
     :return: List of Ingredients
     """
-    return ingredients.copy()
+    ingredients = []
+    cursor = connection.cursor()
+    for row in cursor.execute ("Select * from ingredients"):
+        ingredients.append(Ingredient(*row))
 
 
 def find_by_name_like(name: str):
