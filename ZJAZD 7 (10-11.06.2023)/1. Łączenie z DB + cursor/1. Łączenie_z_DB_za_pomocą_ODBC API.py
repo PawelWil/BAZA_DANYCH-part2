@@ -1,6 +1,30 @@
 #plik '.env musi być dostępny zaraz na początku, bo z niego się pobiera hasło do konta. Nie może ten plik .env być w jakimś katalogu  schowany,
 # bo kod już w innym katalogu wtedy nie zadziała
 
+# Na pewno muszę sobie zainstalować dodatki: pyodbc + python-dotenv- robię to z poziomu "Python Pacakges" - zakladka na samym dole i jak wpiszę te dodatki
+# daję install i dopiero wtedy będzie mi to działało
+
+# -- Tworzenie nowych tabel w bazie danych, to dopiero, jak się połączę z bazą danych i wpisuje wtedy np. dane dla dwóch tabel. Ale robię
+# to w zakładce Database, wchodząc do przycisku QL - i tu daję New Query Console i w niej wpisuje dane tabeli jaką chcę w tej bazie danych utworzyć.
+# Robię to tak jak w przykładach poniżej. Ale potem musze tą tabelę wywołać - robię to poprzez zaznaczenie całego kodu tabeli od nawiasu do nawiasu +  ctrl+ent
+# -- Czyszczenie zawartości tabeli robię: zaznaczam całą tabelę  +  ctrl+ent i wtedy mi się zawartość tej tabeli kasuje
+
+# create TABLE accounts
+# (
+#     account_id      INT IDENTITY Primary KEY,
+#     account_name    VARCHAR(100) NOT NULL,
+#     account_balance FLOAT        NOT NULL
+# );
+# --
+# create TABLE transactions
+# (
+#     transaction_id   INT IDENTITY Primary KEY,
+#     account_id       INT Foreign Key REFERENCES accounts,
+#     transaction_time DATETIME,
+#     amount           FLOAT NOT NULL
+# );
+
+
 import os
 
 import pyodbc
