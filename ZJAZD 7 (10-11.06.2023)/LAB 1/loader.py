@@ -8,5 +8,5 @@ def load_initial_data(filename='ingredients.csv') -> None:
         ingredients_file.readline()  # Ignore headers
         ingredients = []
         for row in reader:
-            database.add_ingredient(*row)
+            ingredients.append(row)
         database.add_many_ingredients(ingredients)
