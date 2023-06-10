@@ -7,7 +7,9 @@
 # -- Tworzenie nowych tabel w bazie danych, to dopiero, jak się połączę z bazą danych i wpisuje wtedy np. dane dla dwóch tabel. Ale robię
 # to w zakładce Database, wchodząc do przycisku QL - i tu daję New Query Console i w niej wpisuje dane tabeli jaką chcę w tej bazie danych utworzyć.
 # Robię to tak jak w przykładach poniżej. Ale potem musze tą tabelę wywołać - robię to poprzez zaznaczenie całego kodu tabeli od nawiasu do nawiasu +  ctrl+ent
-# -- Czyszczenie zawartości tabeli robię: zaznaczam całą tabelę  +  ctrl+ent i wtedy mi się zawartość tej tabeli kasuje
+# -- Czyszczenie zawartości tabeli robię: zaznaczam całą tabelę poprzez zaznaczenie jej kursorem+del ++  ctrl+ent (strzałka do góry)
+# i wtedy mi się zawartość tej tabeli kasuje. ALE UWAGA: jak tabele są ze sobą powiązane kluczami PK i FK to wpierw trzeba skasowac jedną, a potem
+# drugą, która może nam się nie chcieć skasować, bo ta druga musi być wpierw wyczyszczona
 
 # create TABLE accounts
 # (
