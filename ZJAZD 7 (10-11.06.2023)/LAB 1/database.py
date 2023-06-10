@@ -19,6 +19,7 @@ def find_all():
     cursor = connection.cursor()
     for row in cursor.execute ("Select * from ingredients"):
         ingredients.append(Ingredient(*row))
+    return ingredients
 
 
 def find_by_name_like(name: str):
@@ -27,11 +28,14 @@ def find_by_name_like(name: str):
     :param name: name 'like'
     :return: list of ingredients
     """
-    copy = find_all()
-    result = []
+    ingredients = []
+    cursor = connection.cursor()
+    for row in cursor.execute("SELECT * FROM ingredients WHERE  name like ?", (f'%{name}%', )):
+        ingredients.append(Ingredient(*row))
+    return ingredients
 
-    for ingredient in copy:
-        if name.casefold() in ingredient.name.casefold():
-            result.append(ingredient)
+
+
+
 
     return result

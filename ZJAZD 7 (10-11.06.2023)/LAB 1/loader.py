@@ -1,5 +1,5 @@
 import csv
-import mock_database
+import database
 
 
 def load_initial_data(filename='ingredients.csv') -> None:
@@ -7,4 +7,4 @@ def load_initial_data(filename='ingredients.csv') -> None:
         reader = csv.reader(ingredients_file, delimiter=';', quoting=csv.QUOTE_NONNUMERIC)
         ingredients_file.readline()  # Ignore headers
         for row in reader:
-            mock_database.add_ingredient(*row)
+            database.add_ingredient(*row)
