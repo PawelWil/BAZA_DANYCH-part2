@@ -2,6 +2,7 @@ import os
 
 import pyodbc
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -24,31 +25,47 @@ connection_string = f'Driver={driver};' \
 
 connection = pyodbc.connect(connection_string)
 
-#----------------to powyżej to connection ustawienia ODBC
-
-
-
-
-
+#----------------to powyżej to connection ustawienia poprzez ODBC--------^
 
 
 
 class Account:
 
+    @staticmethod     #TEN @STATICMETHOD musi być dodany
+    def current_time():
+        return datetime.now()
+
+
     def __init__(self, name: str, open_balance: float = 0.0):
-        self.name = name
-        self._balance = open_balance
-        print(f"Account {name} created with opening balance {round(open_balance, 2)}")
+        with connection.cursor() as cursor:
+            cursor.execute("insert into accounts (account_name, account_balance) VALUES (?, ?)", (name, open_balance))
+            cursor.execute("SELECT @@Identity as ID")
+            self.id = cursor.fetchone()[0]
+            self.name = name
+            self._balance = open_balance
+            print(f"Account {name} , [id{self.id}] created with opening balance {round(open_balance, 2)}")
+
 
     def deposit(self, amount: float):
         if amount > 0:
-            self._balance += amount
-            print(f"{amount} deposited to Account {self.name}")
+            with connection.cursor() as cursor:
+                self._balance += amount
+                cursor.execute("UPDATE accounts SET account_balance = ? WHERE account_id = ?",
+                                (self._balance, self.id))
+                cursor.execute("INSERT INTO transactions (account_id, transaction_time, amount) VALUES (?,?,?)",
+                               (self.id, account.current_time(), amount))
+                print(f"{amount} deposited to Account {self.name}")
+
 
     def withdraw(self, amount: float):
         if 0 < amount <= self._balance:
-            self._balance -= amount
-            print(f"{amount} withdraw from account {self.name}")
+            with connection.cursor() as cursor:
+                self._balance -= amount
+                cursor.execute("UPDATE accounts SET account_balance = ? WHERE account_id = ?",
+                                (self._balance, self.id))
+                cursor.execute("INSERT INTO transactions (account_id, transaction_time, amount) VALUES (?,?,?)",
+                               (self.id, account.current_time(), -amount))
+                print(f"{amount} withdraw from account {self.name}")
 
     def show_balance(self):
         print(f"Account {self.name} balance: {self._balance}")
