@@ -23,31 +23,17 @@ connection_string = f'Driver={driver};' \
                     'Encrypt=no;'
 
 
+
 connection = pyodbc.connect(connection_string)
-
-connection.execute("Create Table users(id int identity, name varchar(100), age int)")
-connection.execute("INSERT INTO users(name, age) VALUES ('Andrzej', 29)")
-connection.execute("INSERT INTO users(name, age) VALUES ('Maciej', 35)")
-
-
 cursor = connection.cursor()
 
 
-cursor.execute("SELECT * From users")
-for id, name , age in cursor:
-    print(id)
-    print(name)
-    print(age)
-    print(20 * '-')
+new_name = input('Proszę podać imię: ')
+new_email = input('Proszę podać e-mail: ')
 
 
-cursor.execute("SELECT * From users")
-for id, name , age in cursor:
-    print(id)
-    print(name)
-    print(age)
-    print(20 * '-')
-
+cursor.execute  (f"UPDATE users SET email = ? WHERE name = ? ", (new_email, new_name,))
+cursor.commit()
 
 cursor.close()
 connection.close()
