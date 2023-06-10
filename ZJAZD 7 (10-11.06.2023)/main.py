@@ -48,7 +48,7 @@ for id, name , age in cursor:
     print(age)
     print(20 * '-')
 
-    
+
 cursor.close()
 connection.close()
 
